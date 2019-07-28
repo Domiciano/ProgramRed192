@@ -5,4 +5,4 @@
 Bienvenido al curso de programación en red. Aquí podrá encontrar los recursos del curso.
 
 ### Examen de prerrequisitos
-[![Examen de prerrequisitos](https://si.nccdn.net/bi_color/blue_dark_gray/256x256/icon18.png)](https://forms.gle/yTcdeADmkCQ4mP4x9)
+[![Examen de prerrequisitos](http://www.iconninja.com/files/825/688/946/pencil-list-done-checkmark-todo-exam-icon.png)](https://forms.gle/yTcdeADmkCQ4mP4x9)
