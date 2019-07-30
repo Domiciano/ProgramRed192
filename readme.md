@@ -6,3 +6,6 @@ Bienvenido al curso de programación en red. Aquí podrá encontrar los recursos
 
 ### Examen de prerrequisitos
 [![Examen de prerrequisitos](http://www.iconninja.com/files/825/688/946/pencil-list-done-checkmark-todo-exam-icon.png)](https://forms.gle/yTcdeADmkCQ4mP4x9)
+
+### Correo electrónico del profesor
+domiciano.rincon@correounivalle.edu.co
