@@ -1,5 +1,6 @@
 package cliente;
 	
+import cliente.view.Ventana1;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;

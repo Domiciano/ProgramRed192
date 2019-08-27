@@ -39,6 +39,8 @@ public class Ventana1 extends Stage implements OnMessageListener{
 					conexion.waitForConnection();			
 				}
 				).start();
+		
+		
 		this.setOnCloseRequest(
 				(event)->{
 					Platform.exit();
