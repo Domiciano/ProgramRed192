@@ -14,6 +14,8 @@ import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+
 import servidor.comunicacion.Receiver.OnMessageListener;
 
 
@@ -23,7 +25,7 @@ public class TCPConnection {
 	private static TCPConnection instance;
 
 	private TCPConnection() {
-		
+		connections = new ArrayList<>();
 	}
 	
 	public synchronized static TCPConnection getInstance() {
@@ -37,6 +39,7 @@ public class TCPConnection {
 	private int puerto;
 	private String ip; 
 	OnMessageListener main;
+	private ArrayList<Connection> connections; 
 	
 	
 	public void setMain(OnMessageListener main) {
@@ -66,6 +69,7 @@ public class TCPConnection {
 							c.setObserver(main);
 							System.out.println("Conexion aceptada");
 							c.init();
+							connections.add(c);
 						}
 						
 					} catch (IOException e) {
@@ -74,6 +78,12 @@ public class TCPConnection {
 				}
 				).start();
 		
+	}
+
+	public void sendBroadcast(String line) {
+		for(int i=0 ; i<connections.size() ; i++) {
+			connections.get(i).sendMessage(line);
+		}
 	}
 	
 	
