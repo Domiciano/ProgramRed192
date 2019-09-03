@@ -17,6 +17,6 @@ public class Main implements OnMessageListener{
 
 	@Override
 	public void onMessage(String msg) {
-				
+		System.out.println(msg);		
 	}
 }

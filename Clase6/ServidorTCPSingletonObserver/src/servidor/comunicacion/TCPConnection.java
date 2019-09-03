@@ -17,7 +17,7 @@ import java.net.UnknownHostException;
 import servidor.comunicacion.Receiver.OnMessageListener;
 
 
-
+//Adminitrador de conexiones
 public class TCPConnection {
 	
 	private static TCPConnection instance;
@@ -32,17 +32,15 @@ public class TCPConnection {
 	}
 	
 	//Atributos de objeto
-	private OnMessageListener main;
+	
 	private ServerSocket server;
-	private Socket socket;
 	private int puerto;
 	private String ip; 
-	private Sender sender;
-	private Receiver receiver;
+	OnMessageListener main;
+	
 	
 	public void setMain(OnMessageListener main) {
 		this.main = main;
-		if(receiver!=null) receiver.setListener(main);
 	}
 	
 	public TCPConnection setIp(String ip) {
@@ -55,69 +53,28 @@ public class TCPConnection {
 		return instance;
 	}
 	
-	public TCPConnection waitForConnection() {
-		try {
-			server = new ServerSocket(puerto);
-			System.out.println("Esperando conexión");
-			socket = server.accept();
-			System.out.println("Conexion aceptada");
-			initReaderAndWriter();
-			sendMessage("HOLA");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return instance;
+	public void waitForConnection() {
+		
+		new Thread(
+				()->{
+					try {
+						server = new ServerSocket(puerto);
+						while(true) {
+							System.out.println("Esperando conexión");
+							Socket socket = server.accept();
+							Connection c = new Connection(socket);
+							c.setObserver(main);
+							System.out.println("Conexion aceptada");
+							c.init();
+						}
+						
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				).start();
+		
 	}
-	
-	public TCPConnection requestConnection() {
-		try {
-			System.out.println("Solicianto conexión");
-			socket = new Socket(ip, puerto);
-			System.out.println("Conexión establecida");
-			initReaderAndWriter();
-			sendMessage("HOLA");
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return instance;
-	}
-	
-	private void initReaderAndWriter() {
-		try {
-			sender = new Sender( socket.getOutputStream() );
-			receiver = new Receiver( socket.getInputStream() );
-			receiver.setListener(main);
-			receiver.start();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	
-	
-	//Metodo de envio:
-	public void sendMessage(String msg) {
-		sender.sendMessage(msg);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
