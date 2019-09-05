@@ -3,6 +3,7 @@ package servidor.comunicacion;
 import java.io.IOException;
 import java.net.Socket;
 
+import model.Usuario;
 import servidor.comunicacion.Receiver.OnMessageListener;
 
 //Vinculo con el cliente
@@ -11,10 +12,13 @@ public class Connection {
 	private Socket socket;
 	private Sender sender;
 	private Receiver receiver;
+	private Usuario user;
 	
 	public Connection(Socket socket) {
 		this.socket = socket;
 	}
+	
+	
 	
 	private void initReaderAndWriter() {
 		try {
@@ -40,5 +44,20 @@ public class Connection {
 		public void setObserver(OnMessageListener main) {
 			this.main = main;
 		}
+
+
+
+		public Usuario getUser() {
+			return user;
+		}
+
+
+
+		public void setUser(Usuario user) {
+			this.user = user;
+		}
 	
+		
+		
+		
 }

@@ -16,6 +16,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
+import model.Usuario;
 import servidor.comunicacion.Receiver.OnMessageListener;
 
 
@@ -85,6 +86,25 @@ public class TCPConnection {
 			connections.get(i).sendMessage(line);
 		}
 	}
+
+	public void sendDirect(String json, String usuario) {
+		Connection busqueda = null;
+		for(int i=0 ; i<connections.size() ; i++) {
+			if(connections.get(i).getUser().getNombre().equals(usuario) ) {
+				busqueda = connections.get(i);
+				break;
+			}
+		}
+		if(busqueda == null) return;
+		
+		busqueda.sendMessage(json);
+	}
+
+	public void indentifyUser(Usuario u) {
+		Connection c = connections.get(connections.size()-1);
+		c.setUser(u);
+	}
+	
 	
 	
 	
